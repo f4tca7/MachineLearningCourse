@@ -14,7 +14,10 @@ J = 0;
 %               You should set J to the cost.
 
 
-
+J_sum = 0;
+hypo = X * theta;
+sqErr = (hypo - y).^2;
+J = (1/(2*m)) * sum(sqErr);
 
 
 % =========================================================================

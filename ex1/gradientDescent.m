@@ -16,19 +16,15 @@ for iter = 1:num_iters
     % Hint: While debugging, it can be useful to print out the values
     %       of the cost function (computeCost) and gradient here.
     %
-    %temp_theta = theta;
-    %temp_theta(1) = theta(1) - alpha*(sum((X * theta) - y) / m);
-    
+
     hypo = theta(1) * X(:,1) + theta(2) * X(:,2);
+    disp ("The value of hypo is:"), disp (hypo);
     tmp_gen = hypo - y;
     
     tmp_theta_0 = (sum(hypo - y)) / m;
     tmp_theta_0 = theta(1) - tmp_theta_0 * alpha;
-    
-    
-    tmp_theta_1 = tmp_gen .* X(:,2);
-    tmp_theta_1 = sum(tmp_theta_1) / m;
-    tmp_theta_1 = tmp_theta_1 * alpha;  
+
+    tmp_theta_1 = (sum((hypo - y) .* X(:,2)) / m) * alpha;  
     tmp_theta_1 = theta(2) - tmp_theta_1;
     theta = [tmp_theta_0; tmp_theta_1];
     
