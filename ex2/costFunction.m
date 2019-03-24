@@ -22,6 +22,18 @@ grad = zeros(size(theta));
 
 
 
+hypo = sigmoid(X * theta);
+J = (-1 * y' * log(hypo) - (1 - y)'*log(1-hypo))/m;
+
+
+
+disp('J: '), disp(J);
+
+
+err = hypo - y;
+delta = X' * err;
+grad = delta / m;
+disp('grad: '), disp(grad);
 
 
 

@@ -38,7 +38,7 @@ for iter = 1:num_iters
     endfor
     theta = theta_temp;
       
-    % Short version of the code above:
+    % Vectorized version of the code above:
 ##     hypo = X * theta;
 ##     err = hypo - y;
 ##     delta = X' * err;
