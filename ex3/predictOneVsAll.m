@@ -30,11 +30,9 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
-
-
-
+p_all_probas = sigmoid(X * all_theta');
+p_val = zeros(size(X, 1), 1);
+[p_val, p] = max(p_all_probas, [], 2);
 
 % =========================================================================
 
