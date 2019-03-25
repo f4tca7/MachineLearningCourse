@@ -63,12 +63,29 @@ Theta2_grad = zeros(size(Theta2));
 %
 
 
+X = [ones(m, 1) X];
+p_all_probas_1 = sigmoid(X * Theta1');
+disp(p_all_probas_1);
+m_1 = size(X, 1);
+a1 = [ones(m_1, 1) p_all_probas_1];
+p_all_probas_2 = sigmoid(a1 * Theta2');
 
+K = 4;
+yOneHot = zeros(m ,4);
+yOneHot(:,1) = y == 1;
+yOneHot(:,2) = y == 2;
+yOneHot(:,3) = y == 3;
+yOneHot(:,4) = y == 4;
 
+inner_sum = 0;
+for i = 1:K
+  yK = yOneHot(:,i);
+  hK = p_all_probas_2(:, i);
+  jK = (-1 * yK' * log(hK) - (1 - yK)'*log(1-hK));
+  inner_sum += jK;
+endfor
 
-
-
-
+J = inner_sum / m;
 
 
 
