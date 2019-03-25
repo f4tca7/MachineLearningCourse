@@ -70,12 +70,11 @@ m_1 = size(X, 1);
 a1 = [ones(m_1, 1) p_all_probas_1];
 p_all_probas_2 = sigmoid(a1 * Theta2');
 
-K = 4;
-yOneHot = zeros(m ,4);
-yOneHot(:,1) = y == 1;
-yOneHot(:,2) = y == 2;
-yOneHot(:,3) = y == 3;
-yOneHot(:,4) = y == 4;
+K = num_labels;
+yOneHot = zeros(m ,num_labels);
+for i=1:num_labels
+  yOneHot(:,i) = y == i;  
+endfor
 
 inner_sum = 0;
 for i = 1:K
@@ -87,14 +86,13 @@ endfor
 
 J = inner_sum / m;
 
-
-
-
-
-
-
-
-
+theta_sq_sum_1 = Theta1';
+theta_sq_sum_1(1,:) = 0;
+theta_sq_sum_2 = Theta2';
+theta_sq_sum_2(1,:) = 0;
+theta_sq_sum_1 = sum(sum(theta_sq_sum_1 .^ 2));
+theta_sq_sum_2 = sum(sum(theta_sq_sum_2 .^ 2));
+J = J + (lambda / (2*m)) * (theta_sq_sum_1 + theta_sq_sum_2);
 
 
 % -------------------------------------------------------------
