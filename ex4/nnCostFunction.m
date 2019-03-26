@@ -64,11 +64,13 @@ Theta2_grad = zeros(size(Theta2));
 
 
 X = [ones(m, 1) X];
-p_all_probas_1 = sigmoid(X * Theta1');
-disp(p_all_probas_1);
+z2 = X * Theta1';
+p_all_probas_1 = sigmoid(z2);
 m_1 = size(X, 1);
-a1 = [ones(m_1, 1) p_all_probas_1];
-p_all_probas_2 = sigmoid(a1 * Theta2');
+a2 = [ones(m_1, 1) p_all_probas_1];
+z3 = a2 * Theta2';
+p_all_probas_2 = sigmoid(z3);
+a3 = p_all_probas_2;
 
 K = num_labels;
 yOneHot = zeros(m ,num_labels);
@@ -93,6 +95,24 @@ theta_sq_sum_2(1,:) = 0;
 theta_sq_sum_1 = sum(sum(theta_sq_sum_1 .^ 2));
 theta_sq_sum_2 = sum(sum(theta_sq_sum_2 .^ 2));
 J = J + (lambda / (2*m)) * (theta_sq_sum_1 + theta_sq_sum_2);
+
+delta3 = a3 - yOneHot;
+
+
+delta2 = (delta3 * Theta2(:,2:end)) .* sigmoidGradient(z2);
+
+Delta1 = (X' *delta2)' ;
+Delta2 = (a2' * delta3)';
+Theta1_grad = Delta1 ./ m;
+Theta2_grad = Delta2 ./ m;
+
+Theta1(:, 1) = 0;
+Theta2(:, 1) = 0;
+
+Theta1 = Theta1 .* (lambda / m);
+Theta2 = Theta2 .* (lambda / m);
+Theta1_grad = Theta1_grad + Theta1;
+Theta2_grad = Theta2_grad + Theta2;
 
 
 % -------------------------------------------------------------
