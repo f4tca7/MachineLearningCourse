@@ -20,15 +20,22 @@ grad = zeros(size(theta));
 %
 
 
+hypo = X * theta;
+sqErr = (hypo - y).^2;
+J = (1/(2*m)) * sum(sqErr);
+
+theta_sq_sum = theta;
+theta_sq_sum(1) = 0;
+theta_sq_sum = sum(theta_sq_sum .^ 2);
+J = J + (lambda/(2*m)) * theta_sq_sum;
 
 
 
-
-
-
-
-
-
+err = hypo - y;
+delta = X' * err;
+reg_theta = theta;
+reg_theta(1) = 0;
+grad = delta / m + (lambda / m) * reg_theta; 
 
 % =========================================================================
 
