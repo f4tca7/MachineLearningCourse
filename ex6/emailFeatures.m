@@ -48,9 +48,13 @@ x = zeros(n, 1);
 %
 %
 
-
-
-
+for i = 1:n
+  containsI = any(word_indices(:) == i);
+  if containsI 
+    x(i) = 1;
+  endif
+  
+endfor
 
 
 

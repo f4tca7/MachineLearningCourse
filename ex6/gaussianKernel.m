@@ -16,8 +16,9 @@ sim = 0;
 %
 %
 
-
-
+distSq = sum((x1 - x2) .^ 2);
+tmp1 = distSq / (2 * (sigma ^ 2));
+sim = exp(-1 * tmp1);
 
 
 
