@@ -21,9 +21,20 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
-
-
-
+for i = 1:size(X,1)
+  currSample = X(i,:);
+  minDist = Inf;
+  curr_idx = -1;
+  for j = 1:K
+    currCentroid = centroids(j,:);
+    dist = sum((currSample - currCentroid).^2);
+    if dist < minDist 
+      minDist = dist;
+      curr_idx = j;
+    endif
+  endfor
+  idx(i) = curr_idx;
+endfor
 
 
 
